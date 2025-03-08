@@ -1,0 +1,76 @@
+@host = http://localhost
+@port = 3000
+@token = CfDJ8AHCTjzdeFVOpyQbYbe9sOIRToAqGGIv6r7R30qDQr77x_z1gxjcAdtiDjSbY0iovEH9b2cS2LpnBppfGXFDF17gF5Y8cnrkD7LWXkLhpHyjpWG9Lp_blmeK5TeljAWnfYGO_Ik7lxWf-v2W-APC4FXwsbANBWO2jgclXdQ224n0aQ5_SWmv-PFMLEYKa_PeMmB16qHEhgpnANm7jU4XUg4-IGcV9MDL3Ah9jQmDRugOuzHXmzpy3QDmy8sXjR1zjZ6QJK4HsTlyh44TeFbSTRwWpOEZYsSNrCY8JtFxiJJkNM1kTnOf4jleOZSO0HVIzn06_YMsthb25D83h4Eo9tG9DBHDGk1TpLOrR1iVSny2uNXnfOfr19sFOyNJFxeBHHpsJlARpwo06O9qtUjlbZ5xxi8JJR-h7OwcsmO7i6qhgJfoOGks81rdWyLBKBIX2sZdJL708NyQTYSI2OL7T49DLP1_r1ycxk4ob-2GpeWTamq0CTWnP8jAQeFPcJCXVXYi3dAYfpBQtUO2rjm4HX5xfYYVrsYnDMcudVk0Ur5TW49J0JaRW0xinYCIiZ9ShBOJ8kVTwka5E7u-26haW3ubHzfM0T-HE-DGDHsxy7NzjzXpBiY79_WWr9rap3GjaO2TjKx3m16ZnuTwgdmDBWWnSZAqH_4W-_ScZwKYP_mUSU2TwDtGb4wGYV91jQ-4SaugOLXIqod046Ejqgz04DVOWrvtqLsT0D140EAYqbFEdAIvwY858urIu4WAXfyhJ_5McjKomJmJdP5CkZRf2guiQWMMYfz5SNl9iQMOgiU2
+
+@baseUrl = http://localhost:3000
+
+@contentType = application/json
+
+GET {{baseUrl}}
+###
+
+GET {{baseUrl}}/tasks?search=ccc
+
+###
+GET {{baseUrl}}/tasks?status=DONE
+###
+GET {{baseUrl}}/tasks?labels=aaaa,bbbb,cccc
+###
+GET {{baseUrl}}/tasks/8de3bb78-6232-43c6-933f-e91bbdd0c6e0
+###
+# @name createTask
+POST {{baseUrl}}/tasks
+Content-Type: {{contentType}}
+
+
+{
+    "title": "Task 3",
+    "description": "Description 1",
+    "status": "DONE",
+    "userId" : "d09f42d5-e11e-4d3f-8b86-a141e4131c85",
+    "labels" : [
+        {
+            "name" : "label 1"
+        }
+    ]
+}
+###
+@tasksId = {{createTask.response.body.id}}
+
+###
+
+DELETE {{baseUrl}}/tasks/{{tasksId}}
+###
+PATCH {{baseUrl}}/tasks/{{tasksId}}
+Content-Type: {{contentType}}
+
+{
+    "title": "TAsk 33"
+}
+
+###
+POST {{baseUrl}}/tasks/{{tasksId}}/labels
+Content-Type: {{contentType}}
+
+[{
+    "name" : "urgent0000"
+}, {
+    "name" : "urgent0000"
+}]
+
+### 
+DELETE {{baseUrl}}/tasks/{{tasksId}}/labels
+Content-Type: {{contentType}}
+
+["urgent0000"]
+
+###
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+
+{
+    "name": "tedttt",
+    "email": "bessa@gmail.com",
+    "password": "DONE14done**"
+}
