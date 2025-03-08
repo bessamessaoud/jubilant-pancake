@@ -4,7 +4,7 @@ import { TaskStatus } from "../tasks/tasks.model";
 
 export class PaginationParams {
 
-    @Type(() => Number)
+     @Type(() => Number)
     @IsOptional()
     @IsInt()
     @Min(1)
